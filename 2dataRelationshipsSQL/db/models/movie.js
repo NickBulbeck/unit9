@@ -20,7 +20,16 @@ module.exports = (sequelize) => {
   }, { sequelize });
 
   Movie.associate = (models) => {
-    // TODO Add associations.
+// Note: the foreign key, directorPersonId, is added by Sequelize to the three
+// attributes directly added above (that is, id, title and releaseYear).
+    Movie.belongsTo(models.Person,
+      { as: 'director', // must have an equivalent in Person
+        foreignKey:
+          {fieldName:'directorPersonId',
+          allowNull : false
+        }
+      }
+    );
   };
 
   return Movie;

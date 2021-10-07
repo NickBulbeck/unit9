@@ -9,7 +9,7 @@ console.info('Instantiating and configuring the Sequelize object instance...');
 
 const options = {
   dialect: 'sqlite',
-  storage: 'movies.db',
+  storage: 'data/movies.db',
   define: {
     // This option removes the `createdAt` and `updatedAt` columns from the tables
     // that Sequelize generates from our models. These columns are often useful
