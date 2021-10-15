@@ -31,12 +31,14 @@ router.post('/users', asyncHandler(async (req, res) => {
     res.status(201).json({ "message": "Account successfully created!" });
   } catch (error) {
     console.log('ERROR: ', error.name);
-
+// Note below that the unique constraint error is created by the database itself (remember
+// - sequelize doesn't know what emails are in the database), but is then passed up to us via
+// sequelize. 
     if (error.name === 'SequelizeValidationError' || error.name === 'SequelizeUniqueConstraintError') {
-      const errors = error.errors.map(err => err.message);
-      res.status(400).json({ errors });   
+      const errors = error.errors.map(err => err.message);  // process the array of errors that comes
+      res.status(400).json({ errors });                     // with a Sequelize error
     } else {
-      throw error;
+      throw error; // this goes into the error-handling route at the end of app.js
     }
   }
 }));
